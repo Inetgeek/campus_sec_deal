@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njust.campus_sec_deal.mapper.CampusChatMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="edu.njust.campus_sec_deal.entity.CampusChat">
+        <id column="chat_id" property="chatId"/>
+        <result column="msg_id" property="msgId"/>
+        <result column="from_id" property="fromId"/>
+        <result column="chat_content" property="chatContent"/>
+        <result column="send_time" property="sendTime"/>
+        <result column="to_id" property="toId"/>
+    </resultMap>
+
+</mapper>

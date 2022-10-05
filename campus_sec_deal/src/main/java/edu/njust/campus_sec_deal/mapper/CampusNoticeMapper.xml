@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njust.campus_sec_deal.mapper.CampusNoticeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="edu.njust.campus_sec_deal.entity.CampusNotice">
+        <id column="order_id" property="orderId" />
+        <result column="opt_time" property="optTime" />
+        <result column="publisher_id" property="publisherId" />
+        <result column="receiver_id" property="receiverId" />
+        <result column="order_status" property="orderStatus" />
+    </resultMap>
+
+</mapper>

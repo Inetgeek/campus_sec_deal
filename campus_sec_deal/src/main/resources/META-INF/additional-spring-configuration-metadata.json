@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "campus.file.upload-location",
+      "type": "java.lang.String",
+      "description": "文件上传本地位置设置."
+    },
+    {
+      "name": "campus.default.user-sign",
+      "type": "java.lang.String",
+      "description": "用户默认个性签名设置."
+    },
+    {
+      "name": "campus.default.user-logo",
+      "type": "java.lang.String",
+      "description": "用户默认头像URL."
+    },
+    {
+      "name": "campus.file.upload-pattern",
+      "type": "java.lang.String",
+      "description": "文件路径匹配规则."
+    }
+  ]
+}

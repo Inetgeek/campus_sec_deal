@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.njust.campus_sec_deal.mapper.CampusPublishMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="edu.njust.campus_sec_deal.entity.CampusPublish">
+        <id column="publish_id" property="publishId"/>
+        <result column="publisher_id" property="publisherId"/>
+        <result column="publisher_tel" property="publisherTel"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="publish_type" property="publishType"/>
+        <result column="publish_status" property="publishStatus"/>
+        <result column="publish_name" property="publishName"/>
+        <result column="publish_describe" property="publishDescribe"/>
+        <result column="publish_cat" property="publishCat"/>
+        <result column="publish_Oprice" property="publishPprice"/>
+        <result column="publish_Nprice" property="publishNprice"/>
+        <result column="publish_degree" property="publishDegree"/>
+        <result column="img_url" property="imgUrl"/>
+    </resultMap>
+
+</mapper>
