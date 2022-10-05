@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+我的id: <input type="text" id="myId"><button onclick="link()">连接服务器</button><br>
+<hr>
+目标id: <input type="text" id="toId"><br>
+内容: <input type="text" id="content">
+<input type="button" value="发送" onclick="send()"><br>
+<hr>
+收到消息: <div id="msg"></div>
+
+</body>
+<script>
+    var ws;
+    function link() {
+        if (ws != null) {
+            ws.close();
+            ws=null;
+        }
+        var myId = document.getElementById("myId").value;
+        ws=new WebSocket('ws://localhost:8080/api/v1/ws/chat/'+myId);
+        ws.onmessage=function (msg) {
+            var data=msg.data;
+            console.log(data);
+            var old=document.getElementById("msg").innerHTML
+            document.getElementById("msg").innerHTML=old+"<br>"+msg.data;
+        };
+        ws.onopen=function (ev) {
+            console.log("服务器连接成功...")
+        };
+    }
+    function send(){
+        var myId=document.getElementById("myId").value;
+        var toId=document.getElementById("toId").value;
+        var content=document.getElementById("content").value;
+        ws.send(myId+'@'+toId+"@"+content);
+    }
+</script>
+</html>

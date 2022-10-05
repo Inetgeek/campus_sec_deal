@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+消息展示区:<br/>
+<div id="textArea"></div>
+
+</body>
+<script>
+    var textArea = document.getElementById('textArea');
+
+
+    var websocket = null;
+    //如果浏览器支持websocket就建立一个websocket，否则提示浏览器不支持websocket
+    if('websocket' in window){
+        websocketPage = new WebSocket('ws://localhost:8080//api/v1/ws/notice/20220921112424');
+    }else{
+        alert('浏览器不支持websocket!');
+    }
+    //建立websocket时自动调用
+    websocketPage.onopen = function (event) {
+        console.log('建立连接');
+    }
+    //关闭webscoket时自动调用
+    websocketPage.oncolse = function (event){
+        console.log('关闭连接');
+    }
+    //websocket接收到消息时调用
+    websocketPage.onmessage = function (event){
+        //将接收到的消息展示在消息展示区
+        textArea.innerText += event.data;
+        textArea.innerHTML += "<br/>";
+    }
+    //websocket出错自动调用
+    websocketPage.onerror = function () {
+        alert('websocket出错');
+    }
+    //关闭窗口前关闭websocket连接
+    window.onbeforeunload = function (){
+        websocketPage.close();
+    }
+
+</script>
+</html>
