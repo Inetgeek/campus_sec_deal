@@ -3,6 +3,9 @@
 
 # 简介
 该项目诞生于软件课程设计。一个轻量且功能完备的校园二手交易平台后端及数据库。
+# 食用
+使用时请将upload文件夹拷贝到windows系统的D盘，若部署到服务器，则需要修改项目的application配置文件。
+
 具体介绍见【[开发文档WiKi](https://github.com/Inetgeek/campus_sec_deal/wiki/%E5%BC%80%E5%8F%91WiKi)】
 
 # 功能
