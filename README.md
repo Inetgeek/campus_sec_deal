@@ -1,5 +1,8 @@
 # campus_sec_deal
 校园二手交易平台 SpringBoot后端及数据库
+<div align=center>
+<img src="https://user-images.githubusercontent.com/42563262/194395085-1bcad0f8-b826-4130-9bf6-27093716f4e1.png" width="180" height="105"> width="180" height="105"/>
+</div>
 
 # 简介
 该项目诞生于软件课程设计。一个轻量且功能完备的校园二手交易平台后端及数据库。
@@ -33,6 +36,8 @@
 |  15  |       物品搜索       |                  二手商城可以搜索商品或征品                  |
 |  16  |       订单搜索       |                用户后台可以搜索与之相关的订单                |
 |  17  |       账户钱包       |                      提现和充值账户余额                      |
+
+![image](https://user-images.githubusercontent.com/42563262/194394912-b099714a-1f13-48ff-bbd6-fc74174204a6.png)
 
 
 Copyright © 2022 InetGeek(Colyn), All Rights Reserved. 
