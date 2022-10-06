@@ -20,11 +20,11 @@ public interface CampusPublishService extends IService<CampusPublish> {
 
     CampusPublish getOnePublish(String pid);
 
-    boolean updatePublish(String pid, boolean status, Map<String, String> map);
+    boolean updatePublish(String pid, boolean status, CampusPublish publish, String uid);
 
     CampusPublish getPublishByOrder(String oid);
 
-    boolean insertPublish(String pid, boolean status, Map<String, String> map);
+    boolean insertPublish(String pid, boolean status, CampusPublish publish, String uid);
 
     List<CampusPublish> getAllPublish(String uid);
 

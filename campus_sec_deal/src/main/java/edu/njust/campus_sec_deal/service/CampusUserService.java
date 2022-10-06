@@ -23,13 +23,13 @@ public interface CampusUserService extends IService<CampusUser> {
 
     boolean hasUser(String uid);
 
-    boolean isRightUser(String uid, String tel, String mail);
+    boolean isRightUser(CampusUser user);
 
     boolean isRightPwd(String uid, String pwd);
 
-    boolean insertUser(Map<String, String> map);
+    boolean insertUser(CampusUser user, String user_sign, String img_url);
 
-    boolean retrievePassword(String uid, String pwd);
+    boolean retrievePassword(CampusUser user);
 
     CampusUser loginCheck(Map<String, String> map);
 

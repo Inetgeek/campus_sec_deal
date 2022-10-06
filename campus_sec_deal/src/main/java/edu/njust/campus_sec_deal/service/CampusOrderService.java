@@ -21,11 +21,11 @@ public interface CampusOrderService extends IService<CampusOrder> {
 
     boolean hasOrder(String pid);
 
-    boolean insertOrder(String oid, int status, Map<String, String> map);
+    boolean insertOrder(String oid, int status, CampusOrder order, String uid);
 
     boolean updateOrder(String oid, int status);
 
-    Map<String, List<PublishCoOder>> getAllOrder(String uid, int pageNum, int pageSize);
+    Map<String, List<PublishCoOder>> getAllOrder(String uid);
 
     CampusOrder getOneOrder(String oid);
 

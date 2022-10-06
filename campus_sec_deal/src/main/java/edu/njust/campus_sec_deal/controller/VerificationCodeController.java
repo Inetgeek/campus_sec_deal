@@ -32,7 +32,7 @@ public class VerificationCodeController {
         HashMap<String, String> data = new HashMap<>();
 
         // 业务逻辑代码
-        data.put("ver_code", RandomDataUtil.getVerCode());
+        data.put("verCode", RandomDataUtil.getVerCode());
         return new JsonResultUtil<>(data);
     }
 }

@@ -60,8 +60,8 @@ public class ImgUploadController {
 
         String token = request.getHeader("token");
         //从token中取出用户ID
-        String uid = JWTUtil.verifyToken(token, "user_id");
-        if (uid == null) {
+        String uid = JWTUtil.verifyToken(token, "userId");
+        if (uid == null || uid.equals("")) {
             return new JsonResultUtil<>(ReturnCodeConf.TOKEN_ERR, "token错误");
         } else {
 
@@ -88,7 +88,7 @@ public class ImgUploadController {
 
                 //封装返回json的data键值对
                 Map<String, String> data = new HashMap<>();
-                data.put("img_url", img_url);
+                data.put("imgUrl", img_url);
                 return new JsonResultUtil<>(data);
             } else return new JsonResultUtil<>(ReturnCodeConf.OPT_FAIL, "图片上传失败");
         }

@@ -83,7 +83,8 @@ CREATE TABLE `campus_wallet`
     `user_id`        CHAR(14) NOT NULL COMMENT '用户信息唯一标识符',
     `wallet_balance` FLOAT    NOT NULL DEFAULT (0.00) COMMENT '用户的钱包账户余额',
     `wallet_pwd`     INT(6)   NOT NULL DEFAULT (888888) COMMENT '用户钱包支付密码',
-    PRIMARY KEY (`wallet_id`)
+    PRIMARY KEY (`wallet_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `campus_user` (`user_id`)
 ) COMMENT = '账户钱包表', DEFAULT CHARSET = utf8;
 -- 触发器 --
 CREATE TRIGGER trig_insert_user
@@ -115,11 +116,11 @@ CREATE TABLE `campus_chat`
 DROP TABLE IF EXISTS `campus_notice`;
 CREATE TABLE `campus_notice`
 (
-    `order_id`          CHAR(32)     NOT NULL COMMENT '订单唯一标识符',
-    `opt_time`          TIMESTAMP    NOT NULL DEFAULT (CURRENT_TIMESTAMP) COMMENT '操作时间戳',
-    `publisher_id`      CHAR(14)     NOT NULL COMMENT '发布者信息唯一标识符',
-    `receiver_id`       CHAR(14)     NOT NULL COMMENT '物品唯一标识符',
-    `order_status` INT(1)       NOT NULL DEFAULT (3) COMMENT '订单状态',
+    `order_id`     CHAR(32)  NOT NULL COMMENT '订单唯一标识符',
+    `opt_time`     TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP) COMMENT '操作时间戳',
+    `publisher_id` CHAR(14)  NOT NULL COMMENT '发布者信息唯一标识符',
+    `receiver_id`  CHAR(14)  NOT NULL COMMENT '物品唯一标识符',
+    `order_status` INT(1)    NOT NULL DEFAULT (3) COMMENT '订单状态',
     PRIMARY KEY (`order_id`),
     FOREIGN KEY (`order_id`) REFERENCES `campus_order` (`order_id`),
     FOREIGN KEY (`publisher_id`) REFERENCES `campus_user` (`user_id`),

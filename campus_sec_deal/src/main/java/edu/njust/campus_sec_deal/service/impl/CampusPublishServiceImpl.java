@@ -34,34 +34,24 @@ public class CampusPublishServiceImpl extends ServiceImpl<CampusPublishMapper, C
     }
 
     @Override
-    public boolean updatePublish(String pid, boolean status, Map<String, String> map) {
+    public boolean updatePublish(String pid, boolean status, CampusPublish publish, String uid) {
 
-        if (map == null) {
-            CampusPublish publish = new CampusPublish()
+        if (publish == null) {
+            CampusPublish update = new CampusPublish()
                     .setPublishId(pid)
                     .setPublishStatus(status);
             try {
-                publishMapper.updateById(publish);
+                publishMapper.updateById(update);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
         } else {
-            CampusPublish publish = new CampusPublish()
-                    .setPublishId(pid)
-                    .setPublisherId(map.get("publisher_id"))
-                    .setPublisherTel(map.get("publisher_tel"))
+            publish.setPublishId(pid)
+                    .setPublisherId(uid)
                     .setPublishTime(RandomDataUtil.getDateTime())
-                    .setPublishType(Integer.parseInt(map.get("publish_type")))
-                    .setPublishStatus(status)
-                    .setPublishName(map.get("publish_name"))
-                    .setPublishDescribe(map.get("publish_describe"))
-                    .setPublishCat(Integer.parseInt(map.get("publish_cat")))
-                    .setPublishOprice(Float.parseFloat(map.get("publish_Oprice")))
-                    .setPublishNprice(Float.parseFloat(map.get("publish_Nprice")))
-                    .setPublishDegree(Integer.parseInt(map.get("publish_degree")))
-                    .setImgUrl(map.get("img_url"));
+                    .setPublishStatus(status);
             try {
                 publishMapper.updateById(publish);
                 return true;
@@ -78,21 +68,12 @@ public class CampusPublishServiceImpl extends ServiceImpl<CampusPublishMapper, C
     }
 
     @Override
-    public boolean insertPublish(String pid, boolean status, Map<String, String> map) {
-        CampusPublish publish = new CampusPublish()
-                .setPublishId(pid)
-                .setPublisherId(map.get("publisher_id"))
-                .setPublisherTel(map.get("publisher_tel"))
-                .setPublishTime(RandomDataUtil.getDateTime())
-                .setPublishType(Integer.parseInt(map.get("publish_type")))
+    public boolean insertPublish(String pid, boolean status, CampusPublish publish, String uid) {
+
+        publish.setPublishId(pid)
                 .setPublishStatus(status)
-                .setPublishName(map.get("publish_name"))
-                .setPublishDescribe(map.get("publish_describe"))
-                .setPublishCat(Integer.parseInt(map.get("publish_cat")))
-                .setPublishOprice(Float.parseFloat(map.get("publish_Oprice")))
-                .setPublishNprice(Float.parseFloat(map.get("publish_Nprice")))
-                .setPublishDegree(Integer.parseInt(map.get("publish_degree")))
-                .setImgUrl(map.get("img_url"));
+                .setPublisherId(uid)
+                .setPublishTime(RandomDataUtil.getDateTime());
 
         try {
             publishMapper.insert(publish);

@@ -13,17 +13,21 @@ import edu.njust.campus_sec_deal.entity.CampusUser;
 import edu.njust.campus_sec_deal.service.CampusUserService;
 import edu.njust.campus_sec_deal.utils.JWTUtil;
 import edu.njust.campus_sec_deal.utils.JsonResultUtil;
+import org.hibernate.validator.constraints.Length;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@Validated
 @PropertySource("classpath:application.properties")
 @RequestMapping(value = "/api/v1")
 public class UserManageController {
@@ -37,6 +41,8 @@ public class UserManageController {
     @Autowired
     CampusUserService userService;
 
+    public static Logger log = LoggerFactory.getLogger(UserManageController.class);
+
     /**
      * 用户注册接口
      *
@@ -44,13 +50,12 @@ public class UserManageController {
      * @return status
      */
     @PostMapping("/register")
-    public JsonResultUtil<?> userRegister(@NotNull @RequestBody Map<String, String> user) {
-        user.put("user_sign", this.user_sign);
-        user.put("img_url", this.img_url);
+    public JsonResultUtil<?> userRegister(@NotNull @RequestBody @Validated(CampusUser.Register.class) CampusUser user) {
+        log.info("[user] " + user);
 
-        if (userService.insertUser(user)) {
+        if (userService.insertUser(user, user_sign, img_url)) {
             return new JsonResultUtil<>();
-        } else return new JsonResultUtil<>(ReturnCodeConf.SYS_ERR, "系统出错，注册失败");
+        } else return new JsonResultUtil<>(ReturnCodeConf.OPT_FAIL, "注册信息可能已存在");
     }
 
     /**
@@ -60,12 +65,12 @@ public class UserManageController {
      * @return status
      */
     @PutMapping("/reset_pwd")
-    public JsonResultUtil<?> resetPwd(@NotNull @RequestBody Map<String, String> user) {
+    public JsonResultUtil<?> resetPwd(@NotNull @RequestBody @Validated(CampusUser.ResetPwd.class) CampusUser user) {
 
-        if (userService.isRightUser(user.get("user_id"), user.get("user_tel"), user.get("user_mail"))) {
-            if (userService.retrievePassword(user.get("user_id"), user.get("new_pwd"))) {
+        if (userService.isRightUser(user)) {
+            if (userService.retrievePassword(user)) {
                 Map<String, String> data = new HashMap<>();
-                data.put("new_pwd", user.get("new_pwd"));
+                data.put("newPwd", user.getUserPwd());
                 return new JsonResultUtil<>(data);
             } else return new JsonResultUtil<>(ReturnCodeConf.SYS_ERR, "系统出错，找回密码失败");
         } else return new JsonResultUtil<>(ReturnCodeConf.INFO_ERR, "填写信息错误");
@@ -87,7 +92,7 @@ public class UserManageController {
 
             //封装payload信息
             Map<String, String> payload = new HashMap<>();
-            payload.put("user_id", get_user.getUserId());
+            payload.put("userId", get_user.getUserId());
 
             //封装token到data
             Map<String, Object> data = new HashMap<>();
@@ -100,16 +105,16 @@ public class UserManageController {
 
     /**
      * 获取用户简介
-     * @param request
+     *
+     * @param uid
      * @return map<User>
      */
     @GetMapping("/get_user_info")
-    public JsonResultUtil<?> getUserInfo(@NotNull HttpServletRequest request){
-        String uid = request.getHeader("user_id");
+    public JsonResultUtil<?> getUserInfo(@Length(max = 14, min = 14, message = "用户ID不合法") String uid) {
 
         Map<String, String> data = userService.getUserInfo(uid);
-        if (data != null){
+        if (data != null) {
             return new JsonResultUtil<>(data);
-        }else return new JsonResultUtil<>(ReturnCodeConf.INFO_NOT_EXIST, "找不到该用户信息");
+        } else return new JsonResultUtil<>(ReturnCodeConf.INFO_NOT_EXIST, "找不到该用户信息");
     }
 }

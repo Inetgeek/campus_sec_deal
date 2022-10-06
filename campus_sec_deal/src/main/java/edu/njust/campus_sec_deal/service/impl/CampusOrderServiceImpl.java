@@ -11,8 +11,7 @@ package edu.njust.campus_sec_deal.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.PageHelper;
-import edu.njust.campus_sec_deal.controller.SearchController;
+import edu.njust.campus_sec_deal.config.OrderStatusConf;
 import edu.njust.campus_sec_deal.entity.CampusOrder;
 import edu.njust.campus_sec_deal.entity.PublishCoOder;
 import edu.njust.campus_sec_deal.mapper.CampusOrderMapper;
@@ -55,15 +54,12 @@ public class CampusOrderServiceImpl extends ServiceImpl<CampusOrderMapper, Campu
     }
 
     @Override
-    public boolean insertOrder(String oid, int status, Map<String, String> map) {
-        CampusOrder order = new CampusOrder()
-                .setOrderId(oid)
+    public boolean insertOrder(String oid, int status, CampusOrder order, String uid) {
+
+        order.setOrderId(oid)
                 .setOrderTime(RandomDataUtil.getDateTime())
-                .setGoodsId(map.get("publish_id"))
-                .setReceiverId(map.get("receiver_id"))
-                .setReceiverTel(map.get("receiver_tel"))
-                .setDealAddr(map.get("deal_addr"))
-                .setOrderStatus(status);
+                .setOrderStatus(status)
+                .setReceiverId(uid);
         try {
             orderMapper.insert(order);
             return true;
@@ -88,10 +84,9 @@ public class CampusOrderServiceImpl extends ServiceImpl<CampusOrderMapper, Campu
     }
 
     @Override
-    public Map<String, List<PublishCoOder>> getAllOrder(String uid, int pageNum, int pageSize) {
+    public Map<String, List<PublishCoOder>> getAllOrder(String uid) {
 
         try {
-            PageHelper.startPage(pageNum, pageSize);
             List<PublishCoOder> as_publisher = orderMapper.orderListALLByPublisher(uid);
             List<PublishCoOder> as_receiver = orderMapper.orderListALLByReceiver(uid);
 
@@ -104,7 +99,6 @@ public class CampusOrderServiceImpl extends ServiceImpl<CampusOrderMapper, Campu
             if (!as_receiver.isEmpty()) {
                 map.put("receive", as_receiver);
             } else map.put("receive", null);
-
 
             return map;
 
@@ -122,77 +116,77 @@ public class CampusOrderServiceImpl extends ServiceImpl<CampusOrderMapper, Campu
 
         // 过滤 publisher中的过期订单
         do {
-            if(as_publisher == null) {
+            if (as_publisher == null) {
                 break;
             }
             Iterator<PublishCoOder> iter = as_publisher.iterator();
-            while(iter.hasNext()) {
+            while (iter.hasNext()) {
                 PublishCoOder order = iter.next();
-                if(order.getOrderStatus() == 3) {  // 如果是待付款订单
+                if (order.getOrderStatus().equals(OrderStatusConf.ORDER_PAY)) {  // 如果是待付款订单
                     LocalDateTime ddl = order.getOrderTime().plus(time_to_pay, ChronoUnit.MINUTES);
 
                     LocalDateTime now = RandomDataUtil.getDateTime();
 
                     long time = now.until(ddl, ChronoUnit.SECONDS);
-                    if(time <= 0) {
+                    if (time <= 0) {
                         // 取消订单  将status设置为1
-                        order.setOrderStatus(1);
+                        order.setOrderStatus(OrderStatusConf.ORDER_CANCEL);
                         // 把数据库的值也同步修改
-                        updateOrder(order.getOrderId(), 1);
+                        updateOrder(order.getOrderId(), OrderStatusConf.ORDER_CANCEL);
                     }
-                } else if(order.getOrderStatus() == 2) {  // 如果是待交易订单
+                } else if (order.getOrderStatus().equals(OrderStatusConf.ORDER_DEAL)) {  // 如果是待交易订单
                     LocalDateTime ddl = order.getOrderTime().plus(time_to_ex, ChronoUnit.MINUTES);
 
                     LocalDateTime now = RandomDataUtil.getDateTime();
 
                     long time = now.until(ddl, ChronoUnit.SECONDS);
 
-                    if(time <= 0) {
+                    if (time <= 0) {
                         // 取消订单  将status设置为1
-                        order.setOrderStatus(1);
+                        order.setOrderStatus(OrderStatusConf.ORDER_CANCEL);
                         // 把数据库的值也同步修改
-                        updateOrder(order.getOrderId(), 1);
+                        updateOrder(order.getOrderId(), OrderStatusConf.ORDER_CANCEL);
                     }
                 }
             }
-        }while(false);
+        } while (false);
 
         // 过滤 receiver 中的过期订单
         do {
-            if(as_receiver == null) {
+            if (as_receiver == null) {
                 break;
             }
             Iterator<PublishCoOder> iter = as_receiver.iterator();
-            while(iter.hasNext()) {
+            while (iter.hasNext()) {
                 PublishCoOder order = iter.next();
-                if(order.getOrderStatus() == 3) {  // 如果是待付款订单
+                if (order.getOrderStatus() == 3) {  // 如果是待付款订单
                     LocalDateTime ddl = order.getOrderTime().plus(time_to_pay, ChronoUnit.MINUTES);
 
                     LocalDateTime now = RandomDataUtil.getDateTime();
 
                     long time = now.until(ddl, ChronoUnit.SECONDS);
-                    if(time <= 0) {
+                    if (time <= 0) {
                         // 取消订单  将status设置为1
-                        order.setOrderStatus(1);
+                        order.setOrderStatus(OrderStatusConf.ORDER_CANCEL);
                         // 把数据库的值也同步修改
-                        updateOrder(order.getOrderId(), 1);
+                        updateOrder(order.getOrderId(), OrderStatusConf.ORDER_CANCEL);
                     }
-                } else if(order.getOrderStatus() == 2) {  // 如果是待交易订单
+                } else if (order.getOrderStatus().equals(OrderStatusConf.ORDER_DEAL)) {  // 如果是待交易订单
                     LocalDateTime ddl = order.getOrderTime().plus(time_to_ex, ChronoUnit.MINUTES);
 
                     LocalDateTime now = RandomDataUtil.getDateTime();
 
                     long time = now.until(ddl, ChronoUnit.SECONDS);
 
-                    if(time <= 0) {
+                    if (time <= 0) {
                         // 取消订单  将status设置为1
-                        order.setOrderStatus(1);
+                        order.setOrderStatus(OrderStatusConf.ORDER_CANCEL);
                         // 把数据库的值也同步修改
-                        updateOrder(order.getOrderId(), 1);
+                        updateOrder(order.getOrderId(), OrderStatusConf.ORDER_CANCEL);
                     }
                 }
             }
-        }while(false);
+        } while (false);
 
         Map<String, List<PublishCoOder>> result = new HashMap<>();
         if (as_publisher == null || !as_publisher.isEmpty()) {

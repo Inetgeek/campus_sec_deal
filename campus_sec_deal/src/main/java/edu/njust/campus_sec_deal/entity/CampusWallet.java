@@ -14,7 +14,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
@@ -41,12 +47,14 @@ public class CampusWallet implements Serializable {
      * 用户的钱包账户余额
      */
     @TableField("wallet_balance")
+    @Digits(integer = 6, fraction = 2, message = "金额设置不合法")
     private Float walletBalance;
 
     /**
      * 用户钱包支付密码
      */
     @TableField("wallet_pwd")
+    @Pattern(regexp = "^\\d{6}$", message = "支付密码长度不合法")
     private Integer walletPwd;
 
 

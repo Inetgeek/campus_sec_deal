@@ -47,14 +47,14 @@ public class SearchController {
     /**
      * 根据关键词返回物品列表接口
      *
-     * @param query
+     * @param keywords
      * @return status
      */
     @GetMapping("/get_publish")
-    public JsonResultUtil<?> getPublishByKeywords(@RequestBody Map<String, String> query) {
+    public JsonResultUtil<?> getPublishByKeywords(String keywords) {
         List<CampusPublish> originList = publishService.getAllPublish(null);
         if (originList != null) {
-            List<CampusPublish> publishList = searchService.filterPublishList(originList, query.get("keywords"));
+            List<CampusPublish> publishList = searchService.filterPublishList(originList, keywords);
             return new JsonResultUtil<>(publishList);
         } else return new JsonResultUtil<>(ReturnCodeConf.SYS_ERR, "系统出错，查询失败");
     }
@@ -62,25 +62,25 @@ public class SearchController {
     /**
      * 根据关键词返回订单列表接口
      *
-     * @param query
+     * @param keywords
      * @param request
      * @return status
      */
 
     @GetMapping("/get_order")
-    public JsonResultUtil<?> getOrderByKeywords(@RequestBody Map<String, String> query, @NotNull HttpServletRequest request) {
-        log.info(query.get("keywords"));
+    public JsonResultUtil<?> getOrderByKeywords(String keywords, @NotNull HttpServletRequest request) {
+        log.info(keywords);
         String token = request.getHeader("token");
-        String uid = JWTUtil.verifyToken(token, "user_id");
-        if (uid == null) {
+        String uid = JWTUtil.verifyToken(token, "userId");
+        if (uid == null || uid.equals("")) {
             return new JsonResultUtil<>(ReturnCodeConf.TOKEN_ERR, "token错误");
         }
-        Map<String, List<PublishCoOder>> origin_order_data = orderService.getAllOrder(uid, 0, 0);
+        Map<String, List<PublishCoOder>> origin_order_data = orderService.getAllOrder(uid);
         if (origin_order_data != null) {
             List<PublishCoOder> as_publisher = origin_order_data.get("publish");
             List<PublishCoOder> as_receiver = origin_order_data.get("receive");
-            List<PublishCoOder> pub = searchService.filterOrderList(as_publisher, query.get("keywords"));
-            List<PublishCoOder> rec = searchService.filterOrderList(as_receiver, query.get("keywords"));
+            List<PublishCoOder> pub = searchService.filterOrderList(as_publisher, keywords);
+            List<PublishCoOder> rec = searchService.filterOrderList(as_receiver, keywords);
             Map<String, List<PublishCoOder>> map = new HashMap<>();
             if (pub == null || !pub.isEmpty()) {
                 map.put("publish", pub);

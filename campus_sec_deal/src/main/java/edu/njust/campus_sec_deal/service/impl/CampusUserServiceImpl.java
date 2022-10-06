@@ -48,23 +48,18 @@ public class CampusUserServiceImpl extends ServiceImpl<CampusUserMapper, CampusU
     }
 
     @Override
-    public boolean isRightUser(String uid, String tel, String mail) {
-        Long cnt = userMapper.selectCount(Wrappers.<CampusUser>lambdaQuery().eq(CampusUser::getUserId, uid).eq(CampusUser::getUserTel, tel).eq(CampusUser::getUserMail, mail));
+    public boolean isRightUser(CampusUser user) {
+        Long cnt = userMapper.selectCount(Wrappers.<CampusUser>lambdaQuery().eq(CampusUser::getUserId, user.getUserId()).eq(CampusUser::getUserTel, user.getUserTel()).eq(CampusUser::getUserMail, user.getUserMail()));
         return cnt > 0;
     }
 
     @Override
-    public boolean insertUser(Map<String, String> map) {
+    public boolean insertUser(CampusUser user, String user_sign, String img_url) {
         try {
-            CampusUser user = new CampusUser()
-                    .setUserId(RandomDataUtil.getIDByTime())
-                    .setUserName(map.get("user_name"))
+            user.setUserId(RandomDataUtil.getIDByTime())
                     .setUserTime(RandomDataUtil.getDate())
-                    .setUserTel(map.get("user_tel"))
-                    .setUserMail(map.get("user_mail"))
-                    .setUserSign(map.get("user_sign"))
-                    .setImgUrl(map.get("img_url"))
-                    .setUserPwd(map.get("user_pwd"));
+                    .setUserSign(user_sign)
+                    .setImgUrl(img_url);
 
             userMapper.insert(user);
             return true;
@@ -75,11 +70,8 @@ public class CampusUserServiceImpl extends ServiceImpl<CampusUserMapper, CampusU
     }
 
     @Override
-    public boolean retrievePassword(String uid, String pwd) {
+    public boolean retrievePassword(CampusUser user) {
         try {
-            CampusUser user = new CampusUser()
-                    .setUserId(uid)
-                    .setUserPwd(pwd);
             userMapper.updateById(user);
             return true;
         } catch (Exception e) {
@@ -90,23 +82,23 @@ public class CampusUserServiceImpl extends ServiceImpl<CampusUserMapper, CampusU
 
     @Override
     public CampusUser loginCheck(Map<String, String> map) {
-        if (map.get("user_id") != null) {
+        if (map.get("userId") != null) {
             try {
-                return userMapper.selectById(map.get("user_id"));
+                return userMapper.selectById(map.get("userId"));
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
-        } else if (map.get("user_tel") != null) {
+        } else if (map.get("userTel") != null) {
             try {
-                return userMapper.selectOne(Wrappers.<CampusUser>lambdaQuery().eq(CampusUser::getUserTel, map.get("user_tel")));
+                return userMapper.selectOne(Wrappers.<CampusUser>lambdaQuery().eq(CampusUser::getUserTel, map.get("userTel")));
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
-        } else if (map.get("user_mail") != null) {
+        } else if (map.get("userMail") != null) {
             try {
-                return userMapper.selectOne(Wrappers.<CampusUser>lambdaQuery().eq(CampusUser::getUserMail, map.get("user_mail")));
+                return userMapper.selectOne(Wrappers.<CampusUser>lambdaQuery().eq(CampusUser::getUserMail, map.get("userMail")));
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
