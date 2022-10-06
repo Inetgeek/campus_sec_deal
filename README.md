@@ -6,7 +6,12 @@
 # 食用
 使用时请将upload文件夹拷贝到windows系统的D盘，若部署到服务器，则需要修改项目的application配置文件。
 
+# 开发
 超详细说明见【[开发文档WiKi](https://github.com/Inetgeek/campus_sec_deal/wiki/%E5%BC%80%E5%8F%91WiKi)】
+
+# 部署
+1.项目打包发布部署教程：【[CSDN-InetGeek: 使用IDEA打包发布SpringBoot并部署到云服务器](https://blog.csdn.net/qq_34532102/article/details/127018858)】
+2.服务器解决MySQL报错教程：【[CSDN-InetGeek: MySQL导入含有触发器的sql脚本报错解决方案](https://blog.csdn.net/qq_34532102/article/details/127018488)】
 
 # 功能
 | 序号 |         功能         |                             描述                             |
@@ -28,3 +33,6 @@
 |  15  |       物品搜索       |                  二手商城可以搜索商品或征品                  |
 |  16  |       订单搜索       |                用户后台可以搜索与之相关的订单                |
 |  17  |       账户钱包       |                      提现和充值账户余额                      |
+
+
+Copyright © 2022 InetGeek(Colyn), All Rights Reserved. 
