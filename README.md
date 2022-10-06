@@ -1,7 +1,7 @@
 # campus_sec_deal
 校园二手交易平台 SpringBoot后端及数据库
-<div align=center>
-<img src="https://user-images.githubusercontent.com/42563262/194395085-1bcad0f8-b826-4130-9bf6-27093716f4e1.png" width="180" height="105"> width="180" height="105"/>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/42563262/194395085-1bcad0f8-b826-4130-9bf6-27093716f4e1.png" width="65%" height="65%"/>
 </div>
 
 # 简介
