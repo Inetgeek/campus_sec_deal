@@ -7,6 +7,33 @@
 # 简介
 该项目诞生于软件课程设计。一个轻量且功能完备的校园二手交易平台后端及数据库。
 # 食用
+## 必要文件
+```
+campus_sec_deal.7z			            后端项目源码
+upload					                    后端静态文件
+campus_sec_deal-1.3.0.RELEASE.jar		后端项目发布包
+../数据库脚本/campus_sec_deal.sql		数据库生成脚本
+../数据库脚本/create_demo_data.sql		数据库测试数据生成脚本
+```
+
+## 配置环境与运行
+**项目可部署到Linux或Windows上，已发布的jar包仅适配了Windows系统，要适配Linux系统则需要更改项目的application配置文件里的文件参数（有注释）。**
+
+Windows的使用方式如下：
+
+1.将campus_sec_deal.sql导入数据库（例如执行：`ource campus_sec_deal.sql`
+
+2.将create_demo_data.sql导入数据库（例如执行：`ource create_demo_data.sql`)
+
+3.将upload拷贝到Windows系统的D盘根目录
+
+4.在campus_sec_deal-1.3.0.RELEASE.jar所在目录下打开终端（Terminal），执行如下指令：
+```bash
+	java -jar campus_sec_deal-1.3.0.RELEASE.jar
+```
+
+5.使用Apifox等工具根据开发文档wiki说明编写测试数据请求即可。
+
 使用时请将upload文件夹拷贝到windows系统的D盘，若部署到服务器，则需要修改项目的application配置文件。
 
 # 开发
