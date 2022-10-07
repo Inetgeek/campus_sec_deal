@@ -12,8 +12,8 @@
 campus_sec_deal.7z			            后端项目源码
 upload					                    后端静态文件
 campus_sec_deal-1.3.0.RELEASE.jar		后端项目发布包
-../数据库脚本/campus_sec_deal.sql		数据库生成脚本
-../数据库脚本/create_demo_data.sql		数据库测试数据生成脚本
+campus_sec_deal.sql		数据库生成脚本
+create_demo_data.sql		数据库测试数据生成脚本
 ```
 
 ## 配置环境与运行
