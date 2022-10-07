@@ -14,6 +14,7 @@
 
 # 部署
 1.项目打包发布部署教程：【[CSDN-InetGeek: 使用IDEA打包发布SpringBoot并部署到云服务器](https://blog.csdn.net/qq_34532102/article/details/127018858)】
+
 2.服务器解决MySQL报错教程：【[CSDN-InetGeek: MySQL导入含有触发器的sql脚本报错解决方案](https://blog.csdn.net/qq_34532102/article/details/127018488)】
 
 # 功能
