@@ -56,7 +56,7 @@ public class ImgUploadController {
      * @decribe: 前端上传图片须携带token，校验通过后才能上传。返回图片相对路径
      */
     @PostMapping("/upload")
-    public JsonResultUtil<?> imgUpload(@RequestParam("file") MultipartFile file, @RequestParam("img_type") int type, HttpServletRequest request) throws IOException {
+    public JsonResultUtil<?> imgUpload(@RequestParam("file") MultipartFile file, @RequestParam("imgType") int type, HttpServletRequest request) throws IOException {
 
         String token = request.getHeader("token");
         //从token中取出用户ID
