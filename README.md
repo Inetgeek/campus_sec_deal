@@ -21,9 +21,11 @@ create_demo_data.sql    //数据库测试数据生成脚本
 
 Windows的使用方式如下：
 
-1.将`campus_sec_deal.sql`导入数据库（例如执行：`ource campus_sec_deal.sql`)
+首先进入mysql交互环境
 
-2.将`create_demo_data.sql`导入数据库（例如执行：`ource create_demo_data.sql`)
+1.将`campus_sec_deal.sql`导入数据库（例如执行：`source campus_sec_deal.sql`)
+
+2.将`create_demo_data.sql`导入数据库（例如执行：`source create_demo_data.sql`)
 
 3.将`upload`拷贝到Windows系统的D盘根目录
 
