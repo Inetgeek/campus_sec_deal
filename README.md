@@ -17,24 +17,24 @@ campus_sec_deal-1.3.0.RELEASE.jar		后端项目发布包
 ```
 
 ## 配置环境与运行
-**项目可部署到Linux或Windows上，已发布的jar包仅适配了Windows系统，要适配Linux系统则需要更改项目的application配置文件里的文件参数（有注释）。**
+> **项目可部署到Linux或Windows上，已发布的jar包仅适配了Windows系统，要适配Linux系统则需要更改项目的application配置文件里的文件参数（有注释）。**
 
 Windows的使用方式如下：
 
-1.将campus_sec_deal.sql导入数据库（例如执行：`ource campus_sec_deal.sql`
+1.将`campus_sec_deal.sql`导入数据库（例如执行：`ource campus_sec_deal.sql`)
 
-2.将create_demo_data.sql导入数据库（例如执行：`ource create_demo_data.sql`)
+2.将`create_demo_data.sql`导入数据库（例如执行：`ource create_demo_data.sql`)
 
-3.将upload拷贝到Windows系统的D盘根目录
+3.将`upload`拷贝到Windows系统的D盘根目录
 
-4.在campus_sec_deal-1.3.0.RELEASE.jar所在目录下打开终端（Terminal），执行如下指令：
+4.在`campus_sec_deal-1.3.0.RELEASE.jar`所在目录下打开终端（`Terminal`），执行如下指令：
 ```bash
-	java -jar campus_sec_deal-1.3.0.RELEASE.jar
+java -jar campus_sec_deal-1.3.0.RELEASE.jar
 ```
 
 5.使用Apifox等工具根据开发文档wiki说明编写测试数据请求即可。
 
-使用时请将upload文件夹拷贝到windows系统的D盘，若部署到服务器，则需要修改项目的application配置文件。
+> 使用时请将upload文件夹拷贝到windows系统的D盘，若部署到服务器，则需要修改项目的application配置文件。
 
 # 开发
 超详细说明见【[开发文档WiKi](https://github.com/Inetgeek/campus_sec_deal/wiki/%E5%BC%80%E5%8F%91WiKi)】
